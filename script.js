@@ -21,6 +21,17 @@ let allPosts = [];
 let activeTag = null;
 let activeCategory = null;
 
+// -------------------------------
+// THUMBNAIL GENERATOR
+// -------------------------------
+function getThumbnail(post) {
+  if(post.thumbnail) return post.thumbnail; // CMS-provided thumbnail
+  if(post.video_url) {
+    const match = post.video_url.match(/\/d\/(.*?)\//);
+    if(match) return `https://drive.google.com/thumbnail?id=${match[1]}`;
+  }
+  return post.image || ""; // fallback to main image
+}
 
 // -------------------------------
 // INIT
@@ -124,7 +135,7 @@ if(!post) return;
 const el = document.querySelector(selector);
 
 el.innerHTML = `
-<div class="article-image" style="background-image:url('${post.image}')">
+<div class="article-image" style="background-image:url('${getThumbnail(post)}')">
 <div class="date">${formatDate(post.date)}</div>
 </div>
 
@@ -190,8 +201,6 @@ restartCarousel();
 
 }
 
-/* auto slide */
-
 restartCarousel();
 
 }
@@ -207,7 +216,7 @@ carousel.innerHTML = `
 <div class="latest-card">
 
 <div class="latest-img"
-style="background-image:url('${post.image}')"></div>
+style="background-image:url('${getThumbnail(post)}')"></div>
 
 <h3>
 <a href="#" data-slug="${post.slug}" class="story-link">
@@ -264,7 +273,7 @@ container.innerHTML = articles.map(post => `
 
 <article>
 
-<img src="${post.image}" alt="${post.title}">
+<img src="${getThumbnail(post)}" alt="${post.title}">
 
 <h3>
 <a href="#" data-slug="${post.slug}" class="story-link">
@@ -300,7 +309,7 @@ container.innerHTML = `
 
 <p class="date">${formatDate(post.date)}</p>
 
-<img src="${post.image}" style="width:100%; margin:20px 0">
+<img src="${getThumbnail(post)}" style="width:100%; margin:20px 0">
 
 ${renderVideo(post)}
 

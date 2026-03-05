@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main  
 
 media_folder: "images"
 public_folder: "/images"
@@ -11,15 +11,46 @@ collections:
     folder: "content"
     create: true
     slug: "{{slug}}"
+    format: "json"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Slug", name: "slug", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Image URL", name: "image", widget: "image" }
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+      - { label: "Date", name: "date", widget: "datetime", required: true }
+      - label: "Image"
+        name: "image"
+        widget: "image"
+        required: false
       - { label: "Video URL", name: "video_url", widget: "string", required: false }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Content", name: "content", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list" }
-      - { label: "Category", name: "category", widget: "string" }
-      - { label: "Placement", name: "placement", widget: "list", default: ["latest"] }
+      - { label: "Description", name: "description", widget: "text", required: true }
+      - { label: "Content", name: "content", widget: "markdown", required: true }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        options:
+          - international
+          - local
+          - sport
+          - lifestyle
+          - pages
+        required: true
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - politics
+          - economy
+          - health
+          - education
+          - entertainment
+          - technology
+        required: true
+      - label: "Placement"
+        name: "placement"
+        widget: "list"
+        options:
+          - trending
+          - frontview
+          - latest
+          - article
+        required: true
       - { label: "Front Priority", name: "front_priority", widget: "number", required: false }
