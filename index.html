@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community News Box</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+<div class="logo">CommunityNewsBOX</div>
+
+<nav>
+<ul id="nav-tags">
+<li><a href="#" data-tag="international">International</a></li>
+<li><a href="#" data-tag="local">Local News</a></li>
+<li><a href="#" data-tag="pages">Pages</a> <span class="dropdown-arrow">▼</span></li>
+<li><a href="#" data-tag="sport">Sport</a></li>
+<li><a href="#" data-tag="lifestyle">Lifestyle</a></li>
+</ul>
+</nav>
+
+</header>
+
+
+<!-- TRENDING (MAX 1) -->
+<section class="trending" data-placement="trending">
+<div class="trending-label">Trending</div>
+
+<p id="trending-story">
+<!-- JS will inject headline -->
+</p>
+
+</section>
+
+
+<!-- FRONT VIEW (MAX 3) -->
+<main class="news-grid" data-placement="frontview">
+
+<article class="featured-article" id="front-main">
+<!-- main hero story injected -->
+</article>
+
+<div class="side-articles">
+
+<article class="side-article" id="front-side-1"></article>
+
+<article class="side-article" id="front-side-2"></article>
+
+</div>
+
+</main>
+
+
+<!-- LATEST NEWS (UNLIMITED) -->
+<section class="latest-news">
+
+<h1>Latest News</h1>
+
+<div class="news-carousel" id="latest-container">
+<!-- JS injects latest stories -->
+ <div id="latest-pagination" class="latest-pagination"></div>
+</div>
+
+</section>
+
+
+<!-- CATEGORY FILTER -->
+<section class="categories">
+
+<h1>Categories</h1>
+
+<div class="category-grid">
+
+<div class="category" data-category="politics">Politics</div>
+<div class="category" data-category="economy">Economy</div>
+<div class="category" data-category="health">Health</div>
+<div class="category" data-category="education">Education</div>
+<div class="category" data-category="entertainment">Entertainment</div>
+<div class="category" data-category="technology">Technology</div>
+
+</div>
+
+</section>
+
+
+<!-- POPULAR ARTICLES (UNLIMITED) -->
+<section class="popular-articles">
+
+<h1>Popular Articles</h1>
+
+<div class="article-list" id="article-container">
+
+<!-- JS injects article cards -->
+
+</div>
+
+</section>
+
+
+<!-- FULL STORY VIEW (hidden until clicked) -->
+
+<section id="story-view" style="display:none">
+
+<button id="back-btn">← Back</button>
+
+<div id="story-container"></div>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Community News Box. All rights reserved.</p>
+
+<nav>
+<ul>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Contact</a></li>
+<li><a href="#">Privacy Policy</a></li>
+</ul>
+</nav>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "news"
+    label: "News"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image URL", name: "image", widget: "image" }
+      - { label: "Video URL", name: "video_url", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Content", name: "content", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Placement", name: "placement", widget: "list", default: ["latest"] }
+      - { label: "Front Priority", name: "front_priority", widget: "number", required: false }
