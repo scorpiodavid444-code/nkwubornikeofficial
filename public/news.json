@@ -1,0 +1,196 @@
+[
+{
+"title": "Global Leaders Hold Emergency Climate Summit in Geneva",
+"slug": "global-climate-summit-geneva",
+"date": "2026-03-06T09:00:00Z",
+"image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+"description": "World leaders meet in Switzerland to discuss urgent climate policies and global cooperation.",
+"content": "## Global Climate Meeting\n\nLeaders from more than **40 countries** gathered in Geneva to discuss urgent climate policies and economic cooperation.\n\n### Major Topics\n\n- Reducing carbon emissions\n- Supporting developing economies\n- Renewable energy transition",
+"tag": "international",
+"category": "politics",
+"placement": ["trending","latest"]
+},
+
+{
+"title": "Breakthrough AI Technology Promises Major Medical Advances",
+"slug": "ai-medical-breakthrough",
+"date": "2026-03-05T11:00:00Z",
+"image": "https://images.unsplash.com/photo-1581090700227-1e37b190418e",
+"description": "Scientists reveal new artificial intelligence tools capable of detecting diseases earlier.",
+"content": "## AI Transforming Healthcare\n\nArtificial intelligence is revolutionizing early disease detection and medical analysis.",
+"tag": "international",
+"category": "health",
+"placement": ["frontview","latest"],
+"front_priority": 1
+},
+
+{
+"title": "Universities Worldwide Expand Digital Learning Programs",
+"slug": "global-digital-learning-expansion",
+"date": "2026-03-05T13:00:00Z",
+"image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+"description": "Universities increase online education programs to reach students globally.",
+"content": "## Digital Learning Expansion\n\nOnline education platforms are transforming global academic access.",
+"tag": "international",
+"category": "education",
+"placement": ["frontview","latest"],
+"front_priority": 2
+},
+
+{
+"title": "Tech Companies Race to Develop Next Generation Clean Energy",
+"slug": "clean-energy-tech-investment",
+"date": "2026-03-05T16:00:00Z",
+"image": "https://images.unsplash.com/photo-1509395176047-4a66953fd231",
+"description": "Major technology companies invest billions into renewable energy innovation.",
+"content": "## Clean Energy Innovation\n\nCompanies are accelerating the transition toward renewable energy.",
+"tag": "international",
+"category": "technology",
+"placement": ["frontview","latest"],
+"front_priority": 3
+},
+
+{
+"title": "Global Film Industry Sees Record Streaming Growth",
+"slug": "film-industry-streaming-growth",
+"date": "2026-03-04T14:00:00Z",
+"image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba",
+"description": "Streaming services continue to reshape the entertainment industry.",
+"content": "## Entertainment Industry\n\nOnline streaming platforms continue dominating global media consumption.",
+"tag": "lifestyle",
+"category": "entertainment",
+"placement": ["latest"]
+},
+
+{
+"title": "New Vaccine Research Shows Promising Results",
+"slug": "new-vaccine-research",
+"date": "2026-03-04T12:00:00Z",
+"image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+"description": "Scientists announce progress in vaccine research.",
+"content": "## Medical Research\n\nNew vaccine technology aims to strengthen global health protection.",
+"tag": "international",
+"category": "health",
+"placement": ["latest"]
+},
+
+{
+"title": "Global Markets Show Signs of Economic Recovery",
+"slug": "global-economic-recovery",
+"date": "2026-03-04T10:00:00Z",
+"image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+"description": "Stock markets show signs of recovery across several regions.",
+"content": "## Economic Outlook\n\nAnalysts report encouraging signs of recovery in international markets.",
+"tag": "international",
+"category": "economy",
+"placement": ["latest"]
+},
+
+{
+"title": "Sports Technology Changing the Way Athletes Train",
+"slug": "sports-technology-training",
+"date": "2026-03-03T17:00:00Z",
+"image": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+"description": "Advanced sports technology helps athletes improve performance.",
+"content": "## Sports Science\n\nTechnology is transforming modern athletic training.",
+"tag": "sport",
+"category": "technology",
+"placement": ["latest"]
+},
+
+{
+"title": "Education Experts Call for New Digital Curriculum",
+"slug": "digital-curriculum-education",
+"date": "2026-03-03T09:00:00Z",
+"image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
+"description": "Education leaders encourage schools to modernize digital learning.",
+"content": "## Education Reform\n\nExperts recommend updating curriculums for digital economies.",
+"tag": "international",
+"category": "education",
+"placement": ["latest"]
+},
+
+{
+"title": "How Global Education Systems Are Evolving",
+"slug": "global-education-evolution",
+"date": "2026-03-02T16:00:00Z",
+"image": "https://images.unsplash.com/photo-1497486751825-1233686d5d80",
+"description": "Education systems worldwide continue evolving with technology.",
+"content": "## Education Trends\n\nDigital learning platforms reshape global education.",
+"tag": "international",
+"category": "education",
+"placement": ["article"]
+},
+
+{
+"title": "The Importance of Healthy Living in Modern Society",
+"slug": "importance-of-healthy-living",
+"date": "2026-03-02T14:00:00Z",
+"image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773",
+"description": "Health experts encourage balanced lifestyles.",
+"content": "## Healthy Lifestyle\n\nExercise, nutrition and stress management are essential.",
+"tag": "lifestyle",
+"category": "health",
+"placement": ["article"]
+},
+
+{
+"title": "Why Technology is Reshaping the Future of Work",
+"slug": "future-of-work-technology",
+"date": "2026-03-02T12:00:00Z",
+"image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+"description": "Automation and AI are transforming the workplace.",
+"content": "## Future of Work\n\nTechnology continues to reshape global industries.",
+"tag": "international",
+"category": "technology",
+"placement": ["article"]
+},
+
+{
+"title": "The Rise of Remote Work Across the World",
+"slug": "rise-of-remote-work",
+"date": "2026-03-02T10:00:00Z",
+"image": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
+"description": "Remote work continues expanding across industries.",
+"content": "## Remote Work\n\nCompanies are adapting to distributed teams globally.",
+"tag": "international",
+"category": "technology",
+"placement": ["article"]
+},
+
+{
+"title": "Youth Sports Programs Strengthen Community Development",
+"slug": "youth-sports-community",
+"date": "2026-03-01T16:00:00Z",
+"image": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+"description": "Youth sports programs improve social development.",
+"content": "## Youth Development\n\nSports programs help young people develop teamwork and leadership.",
+"tag": "sport",
+"category": "education",
+"placement": ["article"]
+},
+
+{
+"title": "Creative Industries Drive Cultural Growth Worldwide",
+"slug": "creative-industries-growth",
+"date": "2026-03-01T13:00:00Z",
+"image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4",
+"description": "Creative industries continue shaping cultural expression.",
+"content": "## Cultural Growth\n\nMusic, art and film industries continue expanding globally.",
+"tag": "lifestyle",
+"category": "entertainment",
+"placement": ["article"]
+},
+
+{
+"title": "Community Health Initiatives Improve Local Wellbeing",
+"slug": "community-health-initiatives",
+"date": "2026-03-01T10:00:00Z",
+"image": "https://images.unsplash.com/photo-1576765607924-2b0b8e2e0f4d",
+"description": "Community health initiatives expand preventative care.",
+"content": "## Public Health\n\nLocal programs improve access to healthcare services.",
+"tag": "local",
+"category": "health",
+"placement": ["article"]
+}
+]

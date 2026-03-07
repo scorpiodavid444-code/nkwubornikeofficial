@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community News Box</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<header>
+<div class="container header-inner">
+
+<div class="logo">Nkwubor Nike News</div>
+
+<button class="hamburger" id="hamburger">
+☰
+</button>
+
+<nav id="nav-menu">
+<ul id="nav-tags">
+<li><a href="#" data-tag="international">International</a></li>
+<li><a href="#" data-tag="local">Local News</a></li>
+<li class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+Pages <span class="dropdown-arrow">▼</span>
+</a>
+
+<ul class="dropdown-menu">
+<li><a href="history.html">Community History</a></li>
+<li><a href="about.html">About Us</a></li>
+<li><a href="leaders.html">Community Leaders</a></li>
+</ul>
+
+</li>
+<li><a href="#" data-tag="sport">Sport</a></li>
+<li><a href="#" data-tag="lifestyle">Lifestyle</a></li>
+</ul>
+</nav>
+
+<div class="weather-widget">
+<a class="weatherwidget-io"
+href="https://forecast7.com/en/6d46n7d51/enugu/"
+data-label_1="NKWUBOR NIKE"
+data-label_2="WEATHER"
+data-theme="original">
+NKWUBOR NIKE WEATHER
+</a>
+</div>
+
+</div>
+</header>
+
+<section class="trending">
+<div class="container trending-inner">
+
+<div class="trending-label">Trending</div>
+
+<p id="trending-story"></p>
+
+</div>
+</section>
+
+<main class="news-grid">
+<div class="container grid-inner">
+
+<article class="featured-article" id="front-main"></article>
+
+<div class="side-articles">
+
+<article class="side-article" id="front-side-1"></article>
+
+<article class="side-article" id="front-side-2"></article>
+
+</div>
+
+</div>
+</main>
+
+
+<!-- LATEST NEWS (UNLIMITED) -->
+<section class="latest-news">
+
+<h1>Latest News</h1>
+
+<div class="news-carousel" id="latest-container"></div>
+
+<div id="latest-pagination" class="latest-pagination"></div>
+
+</section>
+
+
+<!-- CATEGORY FILTER -->
+<section class="categories">
+
+<h1>Categories</h1>
+
+<div class="category-grid">
+
+<div class="category" data-category="politics">Politics</div>
+<div class="category" data-category="economy">Economy</div>
+<div class="category" data-category="health">Health</div>
+<div class="category" data-category="education">Education</div>
+<div class="category" data-category="entertainment">Entertainment</div>
+<div class="category" data-category="technology">Technology</div>
+
+</div>
+
+</section>
+
+
+<!-- POPULAR ARTICLES (UNLIMITED) -->
+<section class="section__container blog__container" id="blog">
+  <p class="section__subheader">Blog Posts</p>
+  <h2 class="section__header">I Love To Write Articles</h2>
+
+  <div class="blog__grid"></div>
+
+  <div class="load-more-wrapper">
+  <button id="load-more-articles">Load More</button>
+</div>
+
+<div id="article-scroll-trigger"></div>
+</section>
+
+
+<!-- FULL STORY VIEW (hidden until clicked) -->
+
+<section id="story-view" style="display:none">
+
+<button id="back-btn">← Back</button>
+
+<div id="story-container"></div>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Community News Box. All rights reserved.</p>
+
+<nav>
+<ul>
+<li><a href="#">About Us</a></li>
+<li><a href="#">Contact</a></li>
+<li><a href="#">Privacy Policy</a></li>
+</ul>
+</nav>
+
+</footer>
+
+ <!-- Netlify Identity -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+<script src="https://weatherwidget.io/js/widget.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

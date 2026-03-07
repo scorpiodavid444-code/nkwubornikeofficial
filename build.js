@@ -13,7 +13,7 @@ const allPosts = contentFiles.map(file => {
 // Sort by date descending (optional, but matches your JS sorting)
 allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-// Write to /content/news.json
-fs.writeFileSync('content/news.json', JSON.stringify(allPosts, null, 2));
+// Write to /public/news.json (instead of /content/)
+fs.writeFileSync('public/news.json', JSON.stringify(allPosts, null, 2));
+console.log(`Aggregated ${allPosts.length} posts into public/news.json`);
 
-console.log(`Aggregated ${allPosts.length} posts into news.json`);

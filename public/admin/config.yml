@@ -1,0 +1,96 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "news"
+    label: "News"
+    folder: "content"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    format: "json"
+
+    fields:
+
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        required: true
+
+      - label: "Image"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "Video URL"
+        name: "video_url"
+        widget: "string"
+        required: false
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: true
+
+      - label: "Content"
+        name: "content"
+        widget: "markdown"
+        required: true
+
+      # ── Tags ── single fixed choice (no allow_add, no multiple)
+      - label: "Tag (main topic)"
+        name: "tag"               # changed from "tags" to singular
+        widget: "select"
+        required: true
+        options:
+          - international
+          - local
+          - sport
+          - lifestyle
+        default: "local"         
+
+      # ── Category ── already good, but make label clearer
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: true
+        options:
+          - politics
+          - economy
+          - health
+          - education
+          - entertainment
+          - technology
+
+      # ── Placement ── multiple select with note
+      - label: "Placement (editor's choice)"
+        name: "placement"
+        widget: "select"
+        multiple: true
+        required: true
+        default: ["latest"]
+        options:
+          - trending     # max 1 — hottest current story
+          - frontview    # max 3 — highlighted heroes
+          - latest       # unlimited — recent carousel
+          - article      # unlimited — bottom list
+        hint: "Note: Only 1 trending and 3 frontview allowed. Extra will go to latest."
+
+      - label: "Front Priority (lower = higher position in frontview)"
+        name: "front_priority"
+        widget: "number"
+        required: false
+        min: 1
+        max: 10
+        value_type: int

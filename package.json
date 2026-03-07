@@ -2,6 +2,7 @@
   "name": "community-news-box",
   "version": "1.0.0",
   "scripts": {
+   "dev": "node build.js && netlify dev",
     "build": "node build.js"
   },
   "dependencies": {
