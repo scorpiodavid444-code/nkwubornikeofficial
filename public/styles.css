@@ -541,10 +541,12 @@ height:240px;
 .blog__grid {
   display: grid;
   gap: 30px;
+  margin-bottom: 20px; /* ensure trigger isn’t hidden behind padding */
 }
 
-.blog__grid {
-  grid-template-columns: 1fr;
+#article-scroll-trigger {
+  height: 20px; /* 1px is too small */
+  width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -632,10 +634,6 @@ height:240px;
     opacity:1;
     transform:translateY(0);
   }
-}
-
-#article-scroll-trigger{
-  height:1px;
 }
 
 /* ==========================================================================

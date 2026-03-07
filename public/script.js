@@ -108,17 +108,17 @@ function setupInfiniteScroll() {
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM loaded → starting loadPosts()");
   await loadPosts();
-
   setupNavigation();
   setupCategoryFilters();
   setupBackButton();
   setupInfiniteScroll();
 
+  // ────────────── Important changes here ──────────────
+  renderArticles(false);          
   const loadBtn = document.getElementById("load-more-articles");
-
   if (loadBtn) {
     loadBtn.addEventListener("click", () => {
-      renderArticles(false);
+      renderArticles(false);      
     });
   }
 });
@@ -155,7 +155,9 @@ async function loadPosts() {
 
   displayedPosts = [...originalPosts];
   enforcePlacementLimits();
-  renderAll();
+  renderTrending();
+renderFrontView();
+renderLatest();
 }
 
 
@@ -192,7 +194,7 @@ function renderAll() {
   renderTrending();
   renderFrontView();
   renderLatest();
-  renderArticles();
+  renderArticles(false);
 }
 
 // -------------------------------
@@ -625,7 +627,9 @@ function filterPosts() {
  renderTrending();
 renderFrontView();
 renderLatest();
-renderArticles(true);
+articleIndex = 0;         // reset counter
+document.querySelector(".blog__grid").innerHTML = "";  // clear old articles
+renderArticles(false);     // load first chunk only
 }
 
 
