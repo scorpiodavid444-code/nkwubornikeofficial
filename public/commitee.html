@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workshops Attended - Slideshow</title>
+  <link rel="stylesheet" href="./styles.css">
+  
+  <style>
+    /* ==========================================================================
+       GENERAL & RESET
+       ========================================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       SECTION STYLING
+       ========================================================================== */
+    .section__container {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section__subheader {
+      text-align: center;
+      color: #e74c3c;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .section__header {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    .section__header span {
+      color: #e74c3c;
+    }
+
+    .intro-speech {
+  max-width: 780px;
+  margin: 0 auto 35px auto;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  padding: 0 15px;
+}
+
+.intro-speech p {
+  margin-bottom: 0;
+}
+
+    /* ==========================================================================
+       CONFERENCES SLIDESHOW
+       ========================================================================== */
+    .conferences-slideshow {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .conferences-slide {
+      display: none;
+    }
+
+    .conferences-slide.active {
+      display: block;
+    }
+
+    .conferences-slide img {
+  width: 100%;
+  max-width: 580px;           /* smaller version */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: 5px;         /* optional rounded corners */
+}
+
+    .conferences-caption {
+      background: white;
+      padding: 25px 30px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    /* Fade animation */
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.3s;
+    }
+
+    @keyframes fade {
+      from { opacity: 0.3; }
+      to   { opacity: 1; }
+    }
+
+    /* Navigation buttons */
+    .conferences-prev,
+    .conferences-next {
+      cursor: pointer;
+      position: absolute;
+      top: 40%;
+      width: 50px;
+      height: 50px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 24px;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .conferences-prev {
+      left: 15px;
+    }
+
+    .conferences-next {
+      right: 15px;
+    }
+
+    .conferences-prev:hover,
+    .conferences-next:hover {
+      background: rgba(231, 76, 60, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .section__header {
+        font-size: 2rem;
+      }
+
+      .conferences-caption {
+        padding: 20px 25px;
+        font-size: 1rem;
+      }
+
+      .conferences-prev, .conferences-next {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section__container {
+        padding: 40px 15px;
+      }
+
+      .conferences-caption {
+        font-size: 0.95rem;
+        padding: 18px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+<div class="container header-inner">
+
+<div class="logo">
+  <img src="images/logoc.png" alt="logo">
+</div>
+
+<button class="hamburger" id="hamburger">
+☰
+</button>
+
+<nav id="nav-menu">
+<ul id="nav-tags">
+<li><a href="./index.html" data-tag="local">News</a></li>
+<li class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+Pages <span class="dropdown-arrow">▼</span>
+</a>
+
+<ul class="dropdown-menu">
+<li><a href="history.html">Community History</a></li>
+<li><a href="about.html">Gallery</a></li>
+<li><a href="commitee.html">Community Leaders</a></li>
+</ul>
+
+</li>
+
+</ul>
+</nav>
+
+<div class="weather-widget">
+<a class="weatherwidget-io"
+href="https://forecast7.com/en/6d46n7d51/enugu/"
+data-label_1="ENUGU"
+data-label_2="WEATHER"
+data-theme="original">
+ENUGU WEATHER
+</a>
+</div>
+
+</div>
+</header>
+
+  <!-- Conferences / Workshops Section -->
+  <section class="section__container" id="workshops">
+    <p class="section__subheader">Photo Of The</p>
+    <h2 class="section__header">Committee <span>Members.</span></h2>
+
+   <div class="intro-speech">
+  <p>
+    For generations, the people of Nkwubor Nike have remained deeply committed to preserving and upholding the rich traditions of our ancestral land. Through communal unity, respect for elders, sacred rites, and stewardship of the earth, we have passed down the values that define our identity — ensuring that the customs of our forefathers continue to guide leadership, family life, and community harmony in the modern era.
+  </p>
+</div>
+
+    <!-- Slideshow -->
+    <div class="conferences-slideshow">
+
+      <div class="conferences-slide fade">
+        <img src="images/chief james.jpeg" alt="Chief James Okoh" />
+        <div class="conferences-caption">
+          <p>Chief James Okoh, Secretary caretaker committee of Nkwubor Nike</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/jidefor.jpeg" alt="Caretaker committee" />
+        <div class="conferences-caption">
+          <p>These are the caretaker committee of Nkwubor Nike ably led by Chief Jideofor Anike as the chairman and chief James Okoh as the secretary</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/hon raymond.jpeg" alt="Group photo" />
+        <div class="conferences-caption">
+          <p>Caretaker committee members taking pictures with the honourable members representing Enugu East Rural constituency and Urban Constituency Hon Raymond O Ugwu and Hon Osita Okoh after they received their certificate.</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/ugwu.jpeg" alt="Comr. Ugwu Ikenna T." />
+        <div class="conferences-caption">
+          <p>Comr. Ugwu Ikenna T.<br>The youth chairman Nkwubor Nike</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/anike.jpeg" alt="Chief Jideofor Anike" />
+        <div class="conferences-caption">
+          <p>Chief Jideofor Anike, Chairman caretaker committee of Nkwubor Nike</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/dalign.jpeg" alt="Hon. Ugwu Darlington I." />
+        <div class="conferences-caption">
+          <p>Hon. Ugwu Darlington I.<br>The Secretary Nkwubor Nike Youth Association</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/dan.jpeg" alt="Hon pst Beloved-dan Anike" />
+        <div class="conferences-caption">
+          <p>Hon pst Beloved-dan Anike,<br>Enugu East local Govt Chairman</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/felix.jpeg" alt="Hon Felix Nnayelugo Nnamani" />
+        <div class="conferences-caption">
+          <p>Hon Felix Nnayelugo Nnamani<br>Commissioner for labour and employment from Mbuluawuri</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/aneke.jpeg" alt="Chief John Aneke" />
+        <div class="conferences-caption">
+          <p>Chief John Aneke<br>The immediate past PG Nkwubor Nike with by my right Hon Hilary Ugwu Italo former member representing Enugu East Rural constituency, by my left is Hon Samuel Ekene Ugwu former SLG Enugu East LGA and current secretary Ugwuomu Nike community and Hon Raymond O Ugwu immediate past secretary of Nkwubor Nike community and the current house of Assembly member representing Enugu East Rural constituency in Enugu state house of Assembly.</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/josephat.jpeg" alt="High Chief Josephat Okoh" />
+        <div class="conferences-caption">
+          <p>High Chief Josephat Okoh<br>PG Mbuluawuri Town Union<br>Here, he received his certificate from the ministry</p>
+        </div>
+      </div>
+
+      <div class="conferences-slide fade">
+        <img src="images/members.jpeg" alt="Mbuluawuri committee members" />
+        <div class="conferences-caption">
+          <p>Members of Mbuluawuri caretaker committee Mbuluawuri Town Union ably led by High Chief Josephat Okoh as the chairman and prince Emeka Nnamani as the secretary.</p>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <button class="conferences-prev" onclick="plusSlides(-1)">❮</button>
+      <button class="conferences-next" onclick="plusSlides(1)">❯</button>
+    </div>
+  </section>
+
+  <script>
+
+    const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+
+/* ===============================
+HAMBURGER
+=============================== */
+
+hamburger.addEventListener("click", () => {
+
+  navMenu.classList.toggle("active");
+
+  hamburger.textContent =
+    navMenu.classList.contains("active") ? "✕" : "☰";
+
+});
+
+
+/* ===============================
+CLOSE MENU ON LINK CLICK
+=============================== */
+
+document.querySelectorAll("#nav-menu a").forEach(link => {
+
+  link.addEventListener("click", e => {
+
+    if (link.classList.contains("dropdown-toggle")) return;
+
+    navMenu.classList.remove("active");
+    hamburger.textContent = "☰";
+
+  });
+
+});
+
+
+/* ===============================
+DROPDOWN MOBILE TOGGLE
+=============================== */
+
+document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+
+  toggle.addEventListener("click", e => {
+
+    if (window.innerWidth > 900) return;
+
+    e.preventDefault();
+
+    const dropdown = toggle.nextElementSibling;
+
+    dropdown.classList.toggle("show");
+
+  });
+
+});
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+      let slides = document.getElementsByClassName("conferences-slide");
+
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+      }
+
+      slides[slideIndex - 1].classList.add("active");
+    }
+
+    // Optional: Auto advance every 6 seconds
+    setInterval(() => {
+      plusSlides(1);
+    }, 6000);
+  </script>
+
+<script src="https://weatherwidget.io/js/widget.min.js"></script>
+
+</body>
+</html>

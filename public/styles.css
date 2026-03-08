@@ -40,15 +40,22 @@ a {
   color: inherit;
 }
 
+.logo img{
+  height: 100px;
+  padding: 0;
+  margin: 0;
+}
 
 .story-link {
   text-decoration: none;
   color: var(--gray);
+  cursor: pointer;
 }
 
 .story-link:hover {
   text-decoration: underline;
-  color: var(--primary);
+  color: var(--gray);
+    cursor: pointer;
 }
 
 /* ==========================================================================
@@ -58,121 +65,312 @@ a {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 5vw;           /* gives breathing space on sides – like your request */
+  padding: 0 5vw;          
 }
-
 /* ==========================================================================
-   HEADER & NAVIGATION
+   HEADER & NAVIGATION – Modern Mobile-First + Smooth Dropdown
    ========================================================================== */
+
+/* ── Base Header ── */
 header {
   background: white;
   border-bottom: 1px solid var(--border);
-  padding: 18px 0;
+  padding: 12px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s ease;
 }
 
-header .container{
-display:flex;
-align-items:center;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:10px;
+header.scrolled {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
 
-/* logo */
-.logo{
-font-size:1.8rem;
-font-weight:800;
-color:var(--dark);
+/* Container */
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 5vw;
 }
 
-/* nav */
-nav ul{
-display:flex;
-list-style:none;
-gap:32px;
-font-weight:500;
+/* Logo */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--dark);
 }
 
-/* hamburger */
-.hamburger{
-display:none;
-font-size:28px;
-background:none;
-border:none;
-cursor:pointer;
+.logo img {
+  height: 60px;                /* ← adjust if needed */
+  width: auto;
+  display: block;
 }
 
-/* weather */
-.weather-widget{
-margin-left:auto;
+/* Hamburger */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark);
+  padding: 8px;
+  transition: transform 0.3s ease;
 }
 
+.hamburger.active {
+  transform: rotate(90deg);
+}
+
+/* Nav wrapper */
+nav {
+  width: 100%;
+  order: 3;                    /* push below on mobile */
+}
+
+/* Main nav list */
 nav ul {
   display: flex;
   list-style: none;
-  gap: 32px;
+  margin: 0;
+  padding: 0;
   font-weight: 500;
   font-size: 1.05rem;
 }
 
-nav li {
+/* Desktop horizontal layout */
+@media (min-width: 901px) {
+  nav ul {
+    flex-direction: row;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  nav {
+    width: auto;
+    order: initial;
+    max-height: none !important;
+    opacity: 1 !important;
+  }
+
+  .weather-widget {
+    margin-left: auto;
+    order: initial;
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+/* ── Mobile Menu (below 900px) ── */
+@media (max-width: 900px) {
+  .hamburger {
+    display: block;
+  }
+
+  nav {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.45s ease;
+    background: white;
+    border-top: 1px solid var(--border);
+  }
+
+  nav.active {
+    max-height: 600px;           /* adjust if you add many links */
+    opacity: 1;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 5vw;
+  }
+
+  nav a {
+    display: block;
+    padding: 14px 0;
+    color: #333;
+    transition: color 0.2s, padding-left 0.3s;
+  }
+
+  nav a:hover,
+  nav a:focus {
+    color: var(--primary);
+    padding-left: 12px;
+  }
+
+  .weather-widget {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+}
+
+/* ==========================================================================
+   DROPDOWN MENU – Fixed for mobile hidden-by-default
+   ========================================================================== */
+
+/* Base dropdown container */
+.dropdown {
   position: relative;
 }
 
-nav a {
-  color: #333;
-  transition: color 0.2s;
-}
-
-nav a:hover {
-  color: var(--primary);
-}
-
-/* mobile nav */
-
-@media (max-width:900px){
-
-.hamburger{
-display:block;
-}
-
-nav{
-display:none;
-width:100%;
-order:3;
-}
-
-nav.active{
-display:block;
-}
-
-nav ul{
-flex-direction:column;
-gap:18px;
-padding:20px 0;
-border-top:1px solid var(--border);
-}
-
-.weather-widget{
-order:4;
-width:100%;
-margin-top:10px;
-}
-
+/* Dropdown toggle link (Pages) */
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .dropdown-arrow {
-  font-size: 0.7rem;
-  margin-left: 4px;
-  color: #888;
-  vertical-align: middle;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
 }
 
-/* Weather widget – make it smaller & nicer */
+.dropdown-toggle[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu – base state (hidden on mobile, hover on desktop) */
+.dropdown-menu {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu:hover{
+  color: var(--primary);
+}
+
+/* Desktop hover behavior */
+@media (min-width: 901px) {
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    z-index: 999;
+  }
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(4px);
+  }
+
+  .dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    white-space: nowrap;
+  }
+}
+
+/* Mobile accordion behavior – collapsed by default */
+@media (max-width: 900px) {
+  .dropdown-menu {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    border: none;                  /* no border when collapsed */
+    box-shadow: none;
+    background: #f9f9f9;           /* light bg for sub-items */
+    transition: max-height 0.35s ease, opacity 0.35s ease;
+  }
+
+  .dropdown-menu.show {
+    max-height: 300px;             /* enough for your 3 items – increase if needed */
+    opacity: 1;
+    padding: 6px 0;
+  }
+
+  .dropdown-menu li a {
+    display: block;
+    padding: 12px 40px;          
+    font-size: 0.98rem;
+  }
+}
+
+
+/* Mobile accordion-style dropdown */
+@media (max-width: 900px) {
+
+  nav {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.45s ease;
+    background: white;
+    border-top: 1px solid var(--border);
+    margin: 0;                    /* ← remove any default margin */
+  }
+
+  nav.active {
+    max-height: 80vh;             /* ← use viewport height instead of fixed px → prevents cutoff */
+    opacity: 1;
+    overflow-y: auto;             /* ← allow scrolling if menu is very long */
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 4px;                     /* smaller gap than before */
+    padding: 12px 5vw 20px;       /* reduced top padding from 20px → 12px */
+    margin: 0;                    /* ensure no extra margin */
+  }
+
+  nav a {
+    display: block;
+    padding: 12px 0;              /* tighter vertical padding */
+    margin: 0;
+  }
+
+  /* Weather at bottom – less space */
+  .weather-widget {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0 20px;
+    margin-top: 4px;              /* much smaller than 10px */
+    border-top: 1px solid var(--border);
+  }
+
+  /* Dropdown in mobile – less vertical waste */
+  .dropdown-menu.show {
+    max-height: 240px;            /* adjust if needed, but smaller default */
+    padding: 6px 0;               /* reduced from 8px */
+    margin: 0;
+  }
+
+  .dropdown-menu li a {
+    padding: 10px 40px;           /* slightly tighter */
+  }
+}
+
+
+/* Weather widget */
 .weather-widget {
   font-size: 0.9rem;
   color: #444;
@@ -181,70 +379,6 @@ margin-top:10px;
 .weatherwidget-io {
   text-decoration: none !important;
 }
-
-/* ===============================
-DROPDOWN MENU
-=============================== */
-
-.dropdown{
-position:relative;
-}
-
-/* menu container */
-
-.dropdown-menu{
-position:absolute;
-top:120%;
-left:0;
-background:white;
-border:1px solid var(--border);
-list-style:none;
-min-width:200px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
-padding:10px 0;
-
-/* hide by default */
-
-opacity:0;
-visibility:hidden;
-transform:translateY(10px);
-transition:0.25s ease;
-
-/* IMPORTANT: make items vertical */
-
-display:flex;
-flex-direction:column;
-}
-
-/* dropdown items */
-
-.dropdown-menu li{
-width:100%;
-}
-
-.dropdown-menu a{
-display:block;
-padding:5px 20px;
-font-size:0.95rem;
-color:#333;
-white-space:nowrap;
-}
-
-/* hover style */
-
-.dropdown-menu a:hover{
-color:var(--primary);
-background:#f7f7f7;
-}
-
-/* show dropdown on hover (desktop) */
-
-.dropdown:hover .dropdown-menu{
-opacity:1;
-visibility:visible;
-transform:translateY(0);
-}
-
 
 /* ==========================================================================
    TRENDING BAR
@@ -347,7 +481,8 @@ transparent 100%
 }
 
 
-.date{
+.featured-article .date,
+.side-article .date{
 position:absolute;
 bottom:80px;
 left:20px;
@@ -511,130 +646,198 @@ height:240px;
   border-color: var(--primary);
 }
 
-/* ==========================================================================
-   BLOG / ARTICLES SECTION
-   ========================================================================== */
-.blog__container {
-  padding: 60px 40px; 
-  max-width: 1200px;
-  margin: auto;
-}
 
-.section__subheader {
-  text-align: center;
-  color: var(--primary);
-  font-weight: 600;
-}
+/* NEWS STRIP SECTION */
 
-.section__header {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 2.4rem;
-}
-
-.blog__container {
-  padding: 60px 40px; 
-  max-width: 1200px;
-  margin: auto;
-}
-
-.blog__grid {
-  display: grid;
-  gap: 30px;
-  margin-bottom: 20px; /* ensure trigger isn’t hidden behind padding */
-}
-
-#article-scroll-trigger {
-  height: 20px; /* 1px is too small */
-  width: 100%;
-}
-
-@media (min-width: 768px) {
-  .blog__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .blog__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.blog__card {
-  background: white;
-  border-radius: 10px;
+.news-strip-section {
+  padding: 3rem 1rem;
+  background-color: #f9f9f9;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
-  transition: transform 0.25s, box-shadow 0.25s;
 }
 
-.blog__card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+.news-strip-section .section-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.blog__card img {
+.news-strip-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.news-strip-section p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.news-strip-wrapper {
+  overflow: hidden;
+}
+
+.news-strip {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: scroll-left 30s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.news-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 300px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  transition: transform 0.3s;
+}
+
+.news-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-}
-
-.blog__card p {
-  padding: 16px 20px 4px;
-  color: var(--primary);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.blog__card h4 {
-  padding: 0 20px 12px;
-  font-size: 1.25rem;
-}
-
-.blog__card a {
   display: block;
-  padding: 0 20px 20px;
-  color: var(--dark);
+}
+
+.news-card:hover {
+  transform: scale(1.05);
+}
+
+.news-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.news-card:hover .news-overlay {
+  opacity: 1;
+}
+
+.news-overlay h3 {
+  font-size: 1rem;
+  margin: 0.3rem 0;
+}
+
+.news-overlay .news-category {
+  font-size: 0.8rem;
   font-weight: 600;
+  color: #ffdd57;
+}
+.news-strip-section{
+padding:5rem 0;
+position:relative;
+overflow:hidden;
 }
 
-/* LOAD MORE BUTTON */
 
-.load-more-wrapper{
-  text-align:center;
-  margin-top:40px;
+/* WRAPPER */
+
+.news-strip-wrapper{
+overflow:hidden;
+position:relative;
 }
 
-#load-more-articles{
-  background:var(--primary);
-  color:white;
-  border:none;
-  padding:12px 28px;
-  border-radius:6px;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.25s;
+
+/* SCROLL CONTAINER */
+
+.news-strip{
+
+display:flex;
+gap:1.5rem;
+width:max-content;
+
+animation:news-scroll 60s linear infinite;
+
 }
 
-#load-more-articles:hover{
-  opacity:0.9;
+.news-strip:hover{
+animation-play-state:paused;
 }
 
-.blog__card{
-  animation:fadeIn 0.4s ease;
+.news-card{
+position:relative;
+width:340px;
+flex-shrink:0;
+overflow:hidden;
+border-radius:14px;
+
 }
 
-@keyframes fadeIn{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+.news-card img{
+width:100%;
+height:230px;
+object-fit:cover;
+display:block;
 }
+
+.news-overlay{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+padding:1.2rem;
+background:linear-gradient(
+to top,
+rgba(0,0,0,0.85),
+rgba(0,0,0,0.4),
+transparent
+);
+opacity:0;
+transition:opacity .3s ease;
+}
+
+.news-card:hover .news-overlay{
+opacity:1;
+}
+
+.news-category{
+font-size:.75rem;
+text-transform:uppercase;
+letter-spacing:.08em;
+background:#ff3b30;
+color:white;
+padding:4px 8px;
+border-radius:4px;
+display:inline-block;
+margin-bottom:.4rem;
+}
+
+.news-overlay h3{
+margin:0;
+font-size:1rem;
+line-height:1.4;
+}
+
+.news-overlay a{
+color:white;
+text-decoration:none;
+}
+
+
+@keyframes news-scroll{
+
+to{
+transform:translateX(calc(-50% - 0.75rem));
+}
+
+}
+
 
 /* ==========================================================================
    STORY VIEW
@@ -729,6 +932,7 @@ STORY VIEW – BBC NEWS STYLE
   line-height: 1.2;
   color: #111;
   margin-bottom: 10px;
+  
 }
 
 /* Byline & date */
@@ -737,6 +941,8 @@ STORY VIEW – BBC NEWS STYLE
   color: #555;
   font-weight: 500;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Story content */
@@ -923,4 +1129,86 @@ footer a:hover {
     bottom:85px;
   }
 
+}
+
+
+/* ==========================================================================
+   PLAY BUTTON – Netflix-inspired + light glassmorphism
+   ========================================================================== */
+
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 80px;
+  height: 80px;
+  /* or 90–110px for bigger hero cards */
+  
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);   /* Safari support */
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+
+  color: white;
+  font-size: 42px;                      /* size of ▶ */
+  font-weight: bold;
+  line-height: 80px;
+  text-align: center;
+
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+
+  opacity: 0.92;
+  transition: all 0.28s ease;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  opacity: 1;
+}
+
+/* Make it smaller on side cards and carousel */
+.side-article .play-btn,
+.latest-img .play-btn,
+.news-thumb .play-btn {
+  width: 64px;
+  height: 64px;
+  font-size: 34px;
+  line-height: 64px;
+}
+
+/* Optional: hide by default and show only on hover (cleaner look) */
+.article-image .play-btn,
+.latest-img .play-btn,
+.news-thumb .play-btn {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+.featured-article:hover .play-btn,
+.side-article:hover .play-btn,
+.latest-card:hover .play-btn,
+.news-card:hover .play-btn {
+  opacity: 0.92;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Optional: even stronger Netflix red accent version */
+.play-btn.red-accent {
+  background: rgba(229, 9, 20, 0.75);
+  border-color: rgba(255,255,255,0.4);
+  backdrop-filter: blur(4px);
+}
+
+.play-btn.red-accent:hover {
+  background: rgba(229, 9, 20, 0.92);
 }

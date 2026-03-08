@@ -1,24 +1,58 @@
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
 
+/* ===============================
+HAMBURGER
+=============================== */
+
 hamburger.addEventListener("click", () => {
 
-navMenu.classList.toggle("active");
+  navMenu.classList.toggle("active");
 
-if(navMenu.classList.contains("active")){
-hamburger.textContent = "✕";
-}else{
-hamburger.textContent = "☰";
-}
+  hamburger.textContent =
+    navMenu.classList.contains("active") ? "✕" : "☰";
 
 });
 
-document.querySelectorAll("#nav-menu a").forEach(link=>{
-link.addEventListener("click", ()=>{
-navMenu.classList.remove("active");
-hamburger.textContent = "☰";
+
+/* ===============================
+CLOSE MENU ON LINK CLICK
+=============================== */
+
+document.querySelectorAll("#nav-menu a").forEach(link => {
+
+  link.addEventListener("click", e => {
+
+    if (link.classList.contains("dropdown-toggle")) return;
+
+    navMenu.classList.remove("active");
+    hamburger.textContent = "☰";
+
+  });
+
 });
+
+
+/* ===============================
+DROPDOWN MOBILE TOGGLE
+=============================== */
+
+document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+
+  toggle.addEventListener("click", e => {
+
+    if (window.innerWidth > 900) return;
+
+    e.preventDefault();
+
+    const dropdown = toggle.nextElementSibling;
+
+    dropdown.classList.toggle("show");
+
+  });
+
 });
+
 
 
 const NEWS_SOURCE = "/news.json";
@@ -34,72 +68,20 @@ let displayedPosts = [];
 let activeTag = null;
 let activeCategory = null;
 
-let articleIndex = 0;
-const ARTICLES_PER_LOAD = 3;
-let isLoadingArticles = false;
-
 // -------------------------------
 // THUMBNAIL GENERATOR
 // -------------------------------
 function getThumbnail(post) {
-  if (post.thumbnail) return post.thumbnail; // CMS-provided thumbnail
-  if (post.video_url) {
-    const match = post.video_url.match(/\/d\/(.*?)\//);
-    if (match) return `https://drive.google.com/thumbnail?id=${match[1]}`;
-  }
-  return post.image || ""; // fallback to main image
+  if (post.thumbnail) return post.thumbnail;
+
+  if (post.video || post.video_url) {
+  const url = post.video || post.video_url;
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) return `https://drive.google.com/thumbnail?id=${match[1]}`;
 }
 
-function updateLoadMoreButton(totalArticles) {
-  const loadBtn = document.getElementById("load-more-articles");
-  if (!loadBtn) return;
-
-  if (articleIndex >= totalArticles) {
-    loadBtn.style.display = "none";
-  } else {
-    loadBtn.style.display = "inline-block";
-  }
+  return post.image || "";
 }
-
-function setupInfiniteScroll() {
-
-  const trigger = document.getElementById("article-scroll-trigger");
-
-  if (!trigger) return;
-
-  const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-      if (!entry.isIntersecting) return;
-
-      if (isLoadingArticles) return;
-
-      const articles = displayedPosts.filter(p =>
-        p.placement?.includes("article")
-      );
-
-      if (articleIndex >= articles.length) return;
-
-      isLoadingArticles = true;
-
-      renderArticles(false);
-
-      setTimeout(() => {
-        isLoadingArticles = false;
-      }, 200);
-
-    });
-
-  }, {
-    root: null,
-    rootMargin: "200px",
-    threshold: 0
-  });
-
-  observer.observe(trigger);
-}
-
 
 // -------------------------------
 // INIT
@@ -111,16 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNavigation();
   setupCategoryFilters();
   setupBackButton();
-  setupInfiniteScroll();
-
-  // ────────────── Important changes here ──────────────
-  renderArticles(false);          
-  const loadBtn = document.getElementById("load-more-articles");
-  if (loadBtn) {
-    loadBtn.addEventListener("click", () => {
-      renderArticles(false);      
-    });
-  }
+  renderNewsStrip();
 });
 
 
@@ -153,26 +126,25 @@ async function loadPosts() {
     console.log("No posts available");
   }
 
-  displayedPosts = [...originalPosts];
-  enforcePlacementLimits();
+  displayedPosts = enforcePlacementLimits([...originalPosts]);
   renderTrending();
-renderFrontView();
-renderLatest();
+  renderFrontView();
+  renderLatest();
+  renderNewsStrip();
 }
 
-
-function enforcePlacementLimits() {
-  const trending = originalPosts
+function enforcePlacementLimits(postsArray) {
+  const trending = postsArray
     .filter(p => p.placement?.includes("trending"))
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 1);
 
-  const frontview = originalPosts
+  const frontview = postsArray
     .filter(p => p.placement?.includes("frontview"))
     .sort((a, b) => (a.front_priority || 99) - (b.front_priority || 99))
     .slice(0, 3);
 
-  originalPosts.forEach(post => {
+  return postsArray.map(post => {
     let placement = [...(post.placement || [])];
 
     if (placement.includes("trending") && !trending.some(t => t.slug === post.slug)) {
@@ -185,7 +157,7 @@ function enforcePlacementLimits() {
       if (!placement.includes("latest")) placement.push("latest");
     }
 
-    post.placement = placement;
+    return { ...post, placement };
   });
 }
 
@@ -194,7 +166,6 @@ function renderAll() {
   renderTrending();
   renderFrontView();
   renderLatest();
-  renderArticles(false);
 }
 
 // -------------------------------
@@ -271,24 +242,31 @@ function renderHero(selector, post, isMain = false) {
   ];
 
   let imgUrl = getThumbnail(post);
+
   if (!imgUrl) {
     if (isMain) imgUrl = fallbackImages[0];
     else if (selector === "#front-side-1") imgUrl = fallbackImages[1];
     else imgUrl = fallbackImages[2];
   }
 
-  console.log(`Rendering ${selector} → title: ${post.title} | image: ${imgUrl}`);
-
   const el = document.querySelector(selector);
+
   if (!el) {
     console.error(`Element not found: ${selector}`);
     return;
   }
 
+  const hasVideo = post.video || post.video_url;
+
   el.innerHTML = `
     <div class="article-image" style="background-image:url('${imgUrl}')">
+
+      ${hasVideo ? `<div class="play-btn">▶</div>` : ""}
+
       <div class="date">${formatDate(post.date)}</div>
+
     </div>
+
     <h2>
       <a href="#" data-slug="${post.slug}" class="story-link">
         ${post.title}
@@ -298,7 +276,6 @@ function renderHero(selector, post, isMain = false) {
 
   attachStoryEvents();
 }
-
 
 // -------------------------------
 // LATEST NEWS (CAROUSEL + PAGINATION)
@@ -355,23 +332,33 @@ function renderLatest() {
 }
 
 function showLatestSlide(index) {
+
   const carousel = document.querySelector(".news-carousel");
   const post = latestPosts[index];
 
   if (!post) return;
 
   let imgUrl = getThumbnail(post);
-  console.log(`Latest slide #${index} → title: ${post.title} | image: ${imgUrl}`);
+
+  const hasVideo = post.video || post.video_url;
 
   carousel.innerHTML = `
     <div class="latest-card">
-      <div class="latest-img" style="background-image:url('${imgUrl}')"></div>
+
+      <div class="latest-img" style="background-image:url('${imgUrl}')">
+
+        ${hasVideo ? `<div class="play-btn">▶</div>` : ""}
+
+      </div>
+
       <h3>
         <a href="#" data-slug="${post.slug}" class="story-link">
           ${post.title}
         </a>
       </h3>
+
       <p>${post.description || ""}</p>
+
     </div>
   `;
 
@@ -382,6 +369,7 @@ function showLatestSlide(index) {
     btn.classList.toggle("active", i === latestIndex);
   });
 }
+
 
 function restartCarousel() {
   if (latestTimer) clearInterval(latestTimer);
@@ -400,136 +388,143 @@ function restartCarousel() {
 // ARTICLES (UNLIMITED)
 // -------------------------------
 
-function renderArticles(reset = true) {
+function renderNewsStrip() {
 
-  const container = document.querySelector(".blog__grid");
-  const loadBtn = document.getElementById("load-more-articles");
+  const strip = document.getElementById("news-strip");
+  if (!strip) return;
 
-  if (!container) return;
+  const posts = displayedPosts
+    .filter(p => p.placement?.includes("article"))
+    .sort((a,b)=> new Date(b.date) - new Date(a.date));
 
-  const articles = displayedPosts.filter(p => p.placement?.includes("article"));
+  strip.innerHTML = posts.map(post => {
 
-  if (reset) {
-    articleIndex = 0;
-    container.innerHTML = "";
-  }
+    const hasVideo = post.video || post.video_url;
 
-  const nextArticles = articles.slice(articleIndex, articleIndex + ARTICLES_PER_LOAD);
+    return `
 
-  container.innerHTML += nextArticles.map(post => `
-    <div class="blog__card">
-      <img src="${getThumbnail(post)}" alt="${post.title}">
-      <p>${post.category || "Article"}</p>
+      <article class="news-card">
 
-      <h4>
-        <a href="#" data-slug="${post.slug}" class="story-link">
-          ${post.title}
-        </a>
-      </h4>
+        <div class="news-thumb">
 
-      <a href="#" data-slug="${post.slug}" class="story-link read-more">
-        Read More
-      </a>
-    </div>
-  `).join("");
+          <img src="${getThumbnail(post)}" alt="${post.title}">
 
-  articleIndex += nextArticles.length;
+          ${hasVideo ? `<div class="play-btn">▶</div>` : ""}
 
-  // CONTROL BUTTON VISIBILITY
-  if (loadBtn) {
-    if (articleIndex < articles.length) {
-      loadBtn.style.display = "inline-block";
-    } else {
-      loadBtn.style.display = "none";
-    }
-  }
+        </div>
+
+        <div class="news-overlay">
+
+          <span class="news-category">
+            ${post.category || "News"}
+          </span>
+
+          <h3>
+            <a href="#" data-slug="${post.slug}" class="story-link">
+              ${post.title}
+            </a>
+          </h3>
+
+        </div>
+
+      </article>
+
+    `;
+
+  }).join("");
 
   attachStoryEvents();
+
+  // duplicate items for seamless scroll
+  const items = Array.from(strip.children);
+
+  items.forEach(item=>{
+    const clone = item.cloneNode(true);
+    clone.setAttribute("aria-hidden", true);
+    strip.appendChild(clone);
+  });
+
 }
+
 
 // -------------------------------
 // STORY VIEW
 // -------------------------------
+function openStory(slug) {
+  const post = originalPosts.find(p => p.slug === slug);
+  if (!post) return;
 
-function openStory(slug){
+  const container = document.getElementById("story-container");
 
-const post = originalPosts.find(p => p.slug === slug);
-if(!post) return;
+  // Only show thumbnail if there is no video
+  const thumbnailHtml = (!post.video_url && !post.video)
+    ? `<img src="${getThumbnail(post)}" style="width:100%; margin:20px 0">`
+    : "";
 
-const container = document.getElementById("story-container");
+  container.innerHTML = `
+    <h1>${post.title}</h1>
+    <p class="date">${formatDate(post.date)}</p>
+    ${thumbnailHtml}
+    ${renderVideo(post)}
+    <div class="story-content">
+      ${post.content}
+    </div>
+  `;
 
-container.innerHTML = `
+  document.querySelectorAll("section, main").forEach(s => {
+    if (!s.id || s.id !== "story-view") s.style.display = "none";
+  });
 
-<h1>${post.title}</h1>
-
-<p class="date">${formatDate(post.date)}</p>
-
-<img src="${getThumbnail(post)}" style="width:100%; margin:20px 0">
-
-${renderVideo(post)}
-
-<div class="story-content">
-
-${post.content}
-
-</div>
-
-`;
-
-document.querySelectorAll("section, main").forEach(s=>{
-if(!s.id || s.id !== "story-view") s.style.display="none";
-});
-
-document.getElementById("story-view").style.display="block";
-
-window.scrollTo(0,0);
-
+  document.getElementById("story-view").style.display = "block";
+  window.scrollTo(0, 0);
 }
 
 
 // -------------------------------
-// VIDEO SUPPORT
-// Google Drive Embed
+// VIDEO SUPPORT (MP4 + Google Drive)
 // -------------------------------
+function renderVideo(post) {
+  const url = post.video_url || post.video;
+  if (!url) return "";
 
-function renderVideo(post){
+  // Direct MP4/WebM video
+  if (url.match(/\.(mp4|webm|ogg)$/i)) {
+    return `
+      <div class="video-container">
+        <video width="100%" height="500" controls preload="metadata">
+          <source src="${url}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    `;
+  }
 
-if(!post.video_url) return "";
-
-let embed = convertDriveLink(post.video_url);
-
-return `
-
-<div class="video-container">
-
-<iframe
-src="${embed}"
-width="100%"
-height="500"
-frameborder="0"
-allowfullscreen>
-</iframe>
-
-</div>
-
-`;
-
+  // Google Drive video embed
+  const embed = convertDriveLink(url);
+  return `
+    <div class="video-container">
+      <iframe
+        src="${embed}"
+        width="100%"
+        height="500"
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+  `;
 }
 
 
-// convert google drive share link to embed
-function convertDriveLink(url){
-
-if(!url) return "";
-
-const match = url.match(/\/d\/(.*?)\//);
-
-if(!match) return url;
-
-return `https://drive.google.com/file/d/${match[1]}/preview`;
-
+// -------------------------------
+// Convert Google Drive link to preview
+// -------------------------------
+function convertDriveLink(url) {
+  if (!url) return "";
+  const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (!match) return url;
+  return `https://drive.google.com/file/d/${match[1]}/preview`;
 }
-
 
 // -------------------------------
 // BACK BUTTON
@@ -622,14 +617,11 @@ function filterPosts() {
     filtered = filtered.filter(p => p.category === activeCategory);
   }
 
-  displayedPosts = filtered;
-  enforcePlacementLimits();
+ displayedPosts = enforcePlacementLimits(filtered);
  renderTrending();
 renderFrontView();
 renderLatest();
-articleIndex = 0;         // reset counter
-document.querySelector(".blog__grid").innerHTML = "";  // clear old articles
-renderArticles(false);     // load first chunk only
+renderNewsStrip();
 }
 
 
@@ -646,7 +638,6 @@ day:"numeric"
 });
 
 }
-
 
 !function(d,s,id){
 var js,fjs=d.getElementsByTagName(s)[0];

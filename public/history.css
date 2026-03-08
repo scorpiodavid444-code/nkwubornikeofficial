@@ -25,6 +25,10 @@ font-size:42px;
 margin-bottom:10px;
 }
 
+.hero h2{
+    color: #fff;
+}
+
 .history-header p{
 color:#777;
 }
@@ -33,7 +37,7 @@ color:#777;
 
 .hero{
 height:400px;
-background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+background-image:url("./images/road.jpeg");
 background-size:cover;
 background-position:center;
 position:relative;
@@ -70,6 +74,23 @@ display:grid;
 grid-template-columns:1fr 1fr;
 gap:40px;
 align-items:center;
+}
+
+.community-slogan{
+margin-top:20px;
+font-size:1.6rem;
+font-weight:700;
+letter-spacing:2px;
+color:#fff;
+opacity:0.9;
+}
+
+.community-chant{
+text-align:center;
+font-size:1.4rem;
+font-weight:700;
+margin:40px 0 10px;
+color:#333;
 }
 
 .reverse{

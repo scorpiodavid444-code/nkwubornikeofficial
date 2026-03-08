@@ -4,10 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>History of Nkwubor Nike Community</title>
+<link rel="stylesheet" href="./styles.css">
 <link rel="stylesheet" href="history.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+
+  <header>
+<div class="container header-inner">
+
+<div class="logo">
+  <img src="images/logoc.png" alt="logo">
+</div>
+
+<button class="hamburger" id="hamburger">
+☰
+</button>
+
+<nav id="nav-menu">
+<ul id="nav-tags">
+<li><a href="./index.html" data-tag="local">News</a></li>
+<li class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+Pages <span class="dropdown-arrow">▼</span>
+</a>
+
+<ul class="dropdown-menu">
+<li><a href="history.html">Community History</a></li>
+<li><a href="about.html">Gallery</a></li>
+<li><a href="commitee.html">Community Leaders</a></li>
+</ul>
+</li>
+
+</ul>
+</nav>
+
+<div class="weather-widget">
+<a class="weatherwidget-io"
+href="https://forecast7.com/en/6d46n7d51/enugu/"
+data-label_1="ENUGU"
+data-label_2="WEATHER"
+data-theme="original">
+ENUGU WEATHER
+</a>
+</div>
+
+</div>
+</header>
 
 <header class="history-header">
   <h1>Nkwubor Nike Community</h1>
@@ -18,6 +63,11 @@
   <div class="hero-overlay">
     <h2>The Story of Nkwubor Nike Community</h2>
     <p>A community built on unity, tradition, and progress.</p>
+
+    <div class="community-slogan">
+      Obodo Chimere Eze!!!
+    </div>
+
   </div>
 </section>
 
@@ -91,34 +141,103 @@
 
 </section>
 
+
 <section class="community-values">
 
-<h2>What Defines Our Community</h2>
+<h2>Our Community Motto</h2>
 
 <div class="values-grid">
 
 <div class="value-card">
-<h3>Unity</h3>
-<p>The people of Nkwubor stand together in solidarity and communal strength.</p>
+<h3>Peace</h3>
+<p>
+Peace remains the foundation of Nkwubor Nike Community. Our people value harmony,
+mutual respect, and peaceful coexistence among families and neighboring communities.
+</p>
 </div>
 
 <div class="value-card">
-<h3>Heritage</h3>
-<p>Our traditions and customs continue to guide and shape our identity.</p>
+<h3>Equity</h3>
+<p>
+Equity guides the way decisions are made within the community. Every voice matters,
+and fairness is upheld through traditional leadership, communal dialogue, and shared responsibility.
+</p>
 </div>
 
 <div class="value-card">
 <h3>Progress</h3>
-<p>We embrace development while preserving the wisdom of our ancestors.</p>
+<p>
+Nkwubor Nike believes in continuous development. Through education, unity, and
+collective effort, the community strives to build a brighter and prosperous future.
+</p>
 </div>
-
 </div>
-
 </section>
+
 
 <footer class="history-footer">
 <p>© Nkwubor Nike Community | Mbuluawuri Autonomous Community, Enugu East LGA</p>
 </footer>
+
+<script src="https://weatherwidget.io/js/widget.min.js"></script>
+<script> 
+
+  const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
+
+/* ===============================
+HAMBURGER
+=============================== */
+
+hamburger.addEventListener("click", () => {
+
+  navMenu.classList.toggle("active");
+
+  hamburger.textContent =
+    navMenu.classList.contains("active") ? "✕" : "☰";
+
+});
+
+
+/* ===============================
+CLOSE MENU ON LINK CLICK
+=============================== */
+
+document.querySelectorAll("#nav-menu a").forEach(link => {
+
+  link.addEventListener("click", e => {
+
+    if (link.classList.contains("dropdown-toggle")) return;
+
+    navMenu.classList.remove("active");
+    hamburger.textContent = "☰";
+
+  });
+
+});
+
+
+/* ===============================
+DROPDOWN MOBILE TOGGLE
+=============================== */
+
+document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+
+  toggle.addEventListener("click", e => {
+
+    if (window.innerWidth > 900) return;
+
+    e.preventDefault();
+
+    const dropdown = toggle.nextElementSibling;
+
+    dropdown.classList.toggle("show");
+
+  });
+
+});
+
+</script>
 
 </body>
 </html>

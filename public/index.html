@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community News Box</title>
+<title>Nkwubor Nike News</title>
+<link rel="stylesheet" href="styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
 
@@ -11,7 +12,9 @@
 <header>
 <div class="container header-inner">
 
-<div class="logo">Nkwubor Nike News</div>
+<div class="logo">
+  <img src="images/logoc.png" alt="logo">
+</div>
 
 <button class="hamburger" id="hamburger">
 ☰
@@ -29,8 +32,8 @@ Pages <span class="dropdown-arrow">▼</span>
 
 <ul class="dropdown-menu">
 <li><a href="history.html">Community History</a></li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="leaders.html">Community Leaders</a></li>
+<li><a href="about.html">Gallery</a></li>
+<li><a href="commitee.html">Community Leaders</a></li>
 </ul>
 
 </li>
@@ -42,10 +45,10 @@ Pages <span class="dropdown-arrow">▼</span>
 <div class="weather-widget">
 <a class="weatherwidget-io"
 href="https://forecast7.com/en/6d46n7d51/enugu/"
-data-label_1="NKWUBOR NIKE"
+data-label_1="ENUGU"
 data-label_2="WEATHER"
 data-theme="original">
-NKWUBOR NIKE WEATHER
+ENUGU WEATHER
 </a>
 </div>
 
@@ -109,22 +112,24 @@ NKWUBOR NIKE WEATHER
 
 </section>
 
+<!-- articles -->
 
-<!-- POPULAR ARTICLES (UNLIMITED) -->
-<section class="section__container blog__container" id="blog">
-  <p class="section__subheader">Blog Posts</p>
-  <h2 class="section__header">I Love To Write Articles</h2>
+<section class="news-strip-section">
 
- <div class="blog__grid">
-  <!-- articles inserted here -->
-  <div id="article-scroll-trigger"></div>
-</div>
+  <div class="section-header">
+    <h2>Latest Articles</h2>
+    <p>Catch up on the latest news and stories from Nkwubor Nike community and beyond.</p>
+  </div>
 
-<div class="load-more-wrapper">
-  <button id="load-more-articles">Load More</button>
-</div>
+  <div class="news-strip-wrapper">
+
+    <div class="news-strip" id="news-strip">
+      <!-- news cards injected here by JS -->
+    </div>
+
+  </div>
+
 </section>
-
 
 <!-- FULL STORY VIEW (hidden until clicked) -->
 
@@ -139,7 +144,7 @@ NKWUBOR NIKE WEATHER
 
 <footer>
 
-<p>© 2026 Community News Box. All rights reserved.</p>
+<p>© 2026 Nkwubor Nike News. All rights reserved.</p>
 
 <nav>
 <ul>
