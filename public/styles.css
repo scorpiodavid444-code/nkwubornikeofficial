@@ -40,6 +40,10 @@ a {
   color: inherit;
 }
 
+a:hover{
+   color: var(--primary);
+}
+
 .logo img{
   height: 100px;
   padding: 0;
