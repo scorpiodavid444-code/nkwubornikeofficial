@@ -258,7 +258,7 @@ nav ul {
   transition: all 0.3s ease;
 }
 
-.dropdown-menu:hover{
+.dropdown-menu a:hover{
   color: var(--primary);
 }
 
@@ -379,6 +379,165 @@ nav ul {
 .weatherwidget-io {
   text-decoration: none !important;
 }
+
+
+.section__container {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section__subheader {
+      text-align: center;
+      color: #e74c3c;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .section__header {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    .section__header span {
+      color: #e74c3c;
+    }
+
+   .intro-speech {
+  max-width: 780px;
+  margin: 0 auto 35px auto;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  padding: 0 15px;
+}
+
+.intro-speech p {
+  margin-bottom: 0;
+}
+
+    /* ==========================================================================
+       CONFERENCES SLIDESHOW
+       ========================================================================== */
+    .conferences-slideshow {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .conferences-slide {
+      display: none;
+    }
+
+    .conferences-slide.active {
+      display: block;
+    }
+
+    .conferences-slide img {
+  width: 100%;
+  max-width: 580px;           /* smaller version */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: 5px;         /* optional rounded corners */
+}
+
+    .conferences-caption {
+      background: white;
+      padding: 25px 30px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    /* Fade animation */
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.3s;
+    }
+
+    @keyframes fade {
+      from { opacity: 0.3; }
+      to   { opacity: 1; }
+    }
+
+    /* Navigation buttons */
+    .conferences-prev,
+    .conferences-next {
+      cursor: pointer;
+      position: absolute;
+      top: 40%;
+      width: 50px;
+      height: 50px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 24px;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .conferences-prev {
+      left: 15px;
+    }
+
+    .conferences-next {
+      right: 15px;
+    }
+
+    .conferences-prev:hover,
+    .conferences-next:hover {
+      background: rgba(231, 76, 60, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .section__header {
+        font-size: 2rem;
+      }
+
+      .conferences-caption {
+        padding: 20px 25px;
+        font-size: 1rem;
+      }
+
+      .conferences-prev, .conferences-next {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section__container {
+        padding: 40px 15px;
+      }
+
+      .conferences-caption {
+        font-size: 0.95rem;
+        padding: 18px 20px;
+      }
+    }
 
 /* ==========================================================================
    TRENDING BAR
